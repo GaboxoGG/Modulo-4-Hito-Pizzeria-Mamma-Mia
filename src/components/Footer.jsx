@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <footer style={{ textAlign: "center", padding: "10px", background: "#222", color: "#fff" }}>
+    <footer className="bg-dark text-white text-center py-3">
       © 2021 - Pizzería Mamma Mía! - Todos los derechos reservados
     </footer>
   );

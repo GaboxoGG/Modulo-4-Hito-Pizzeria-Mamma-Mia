@@ -55,11 +55,10 @@ body {
 }
 
 #root {
-  width: 1126px;
-  max-width: 100%;
+  width: 100%;
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
@@ -111,22 +110,24 @@ code {
 }
 
 .header {
-  height: 250px;
-  background-image: url("https://images.unsplash.com/photo-1601924928587-1e0b7c9a1c1b");
+  background-image: url("https://images.unsplash.com/photo-1601924582975-7e0b3b6fef4e");
   background-size: cover;
   background-position: center;
-  position: relative;
+  height: 300px;
+  position: relative; /* 🔥 ESTA LÍNEA FALTABA */
 }
 
 .header::before {
   content: "";
   position: absolute;
-  inset: 0;
+  top: 0;       /* 👈 agrégalo */
+  left: 0;      /* 👈 agrégalo */
+  width: 100%;
+  height: 100%; /* 👈 mejor que 300px */
   background: rgba(0, 0, 0, 0.5);
 }
 
-.header h1,
-.header p {
+.header .container {
   position: relative;
   z-index: 1;
 }

@@ -3,24 +3,38 @@ const Navbar = () => {
   const token = false;
 
   return (
-    <nav style={{ display: "flex", justifyContent: "space-between", padding: "10px", background: "#222", color: "#fff" }}>
-      <div>
-        <button>🍕 Home</button>
+    <nav className="navbar navbar-dark bg-dark px-4">
+      <div className="container-fluid d-flex justify-content-between">
 
-        {token ? (
-          <>
-            <button>🔓 Profile</button>
-            <button>🔓 Logout</button>
-          </>
-        ) : (
-          <>
-            <button>🔐 Login</button>
-            <button>🔐 Register</button>
-          </>
-        )}
+        {/* IZQUIERDA */}
+        <div className="d-flex align-items-center gap-3">
+          <span className="navbar-brand mb-0 h5">
+            Pizzería Mamma Mía!
+          </span>
+
+          <a className="btn btn-outline-light btn-sm">🍕 Inicio</a>
+
+          {token ? (
+            <>
+              <a className="btn btn-outline-light btn-sm">🔓 Profile</a>
+              <a className="btn btn-outline-light btn-sm">🔓 Logout</a>
+            </>
+          ) : (
+            <>
+              <a className="btn btn-outline-light btn-sm">🔐 Login</a>
+              <a className="btn btn-outline-light btn-sm">🔐 Register</a>
+            </>
+          )}
+        </div>
+
+        {/* DERECHA */}
+        <div>
+          <a className="btn btn-info btn-sm">
+            🛒 Total: ${total.toLocaleString()}
+          </a>
+        </div>
+
       </div>
-
-      <button>🛒 Total: ${total.toLocaleString()}</button>
     </nav>
   );
 };
