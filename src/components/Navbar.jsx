@@ -1,4 +1,4 @@
-const Navbar = () => {
+const Navbar = ({ setView }) => {
   const total = 25000;
   const token = false;
 
@@ -8,30 +8,54 @@ const Navbar = () => {
 
         {/* IZQUIERDA */}
         <div className="d-flex align-items-center gap-3">
-          <span className="navbar-brand mb-0 h5">
+          <span
+            className="navbar-brand mb-0 h5"
+            style={{ cursor: "pointer" }}
+            onClick={() => setView("home")}
+          >
             Pizzería Mamma Mía!
           </span>
 
-          <a className="btn btn-outline-light btn-sm">🍕 Inicio</a>
+          <button
+            className="btn btn-outline-light btn-sm"
+            onClick={() => setView("home")}
+          >
+            🍕 Inicio
+          </button>
 
           {token ? (
             <>
-              <a className="btn btn-outline-light btn-sm">🔓 Profile</a>
-              <a className="btn btn-outline-light btn-sm">🔓 Logout</a>
+              <button className="btn btn-outline-light btn-sm">
+                🔓 Profile
+              </button>
+              <button className="btn btn-outline-light btn-sm">
+                🔓 Logout
+              </button>
             </>
           ) : (
             <>
-              <a className="btn btn-outline-light btn-sm">🔐 Login</a>
-              <a className="btn btn-outline-light btn-sm">🔐 Register</a>
+              <button
+                className="btn btn-outline-light btn-sm"
+                onClick={() => setView("login")}
+              >
+                🔐 Login
+              </button>
+
+              <button
+                className="btn btn-outline-light btn-sm"
+                onClick={() => setView("register")}
+              >
+                🔐 Register
+              </button>
             </>
           )}
         </div>
 
         {/* DERECHA */}
         <div>
-          <a className="btn btn-info btn-sm">
+          <button className="btn btn-info btn-sm">
             🛒 Total: ${total.toLocaleString()}
-          </a>
+          </button>
         </div>
 
       </div>

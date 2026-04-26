@@ -1,12 +1,22 @@
+import { useState } from "react";
 import Navbar from "./components/Navbar";
-import Home from "./views/Home";
 import Footer from "./components/Footer";
 
+import Home from "./views/Home";
+import LoginPage from "./views/LoginPage";
+import RegisterPage from "./views/RegisterPage";
+
 function App() {
+  const [view, setView] = useState("home");
+
   return (
     <>
-      <Navbar />
-      <Home />
+      <Navbar setView={setView} />
+
+      {view === "home" && <Home />}
+      {view === "login" && <LoginPage />}
+      {view === "register" && <RegisterPage />}
+
       <Footer />
     </>
   );
