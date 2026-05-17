@@ -1,78 +1,37 @@
-const Navbar = ({ setView }) => {
-  const total = 25000;
-  const token = false;
+import { Link } from 'react-router-dom';
 
+function Navbar() {
   return (
-    <nav className="navbar navbar-dark bg-dark px-4">
-      <div className="container-fluid d-flex justify-content-between align-items-center">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          🍕 Pizzería Mamma Mía
+        </Link>
 
-        {/* IZQUIERDA */}
-        <div className="d-flex align-items-center gap-2 flex-wrap">
+        <div className="navbar-nav ms-auto d-flex flex-row gap-3">
+          <Link className="nav-link text-white" to="/">
+            Home
+          </Link>
 
-          <span
-            className="navbar-brand mb-0 h5 me-3"
-            style={{ cursor: "pointer" }}
-            onClick={() => setView("home")}
-          >
-            Pizzería Mamma Mía!
-          </span>
+          <Link className="nav-link text-white" to="/register">
+            Register
+          </Link>
 
-          <button
-            className="btn btn-outline-light btn-sm"
-            onClick={() => setView("home")}
-          >
-            🍕 Inicio
-          </button>
+          <Link className="nav-link text-white" to="/login">
+            Login
+          </Link>
 
-          <button
-            className="btn btn-outline-light btn-sm"
-            onClick={() => setView("pizza")}
-          >
-            👀 Pizza
-          </button>
+          <Link className="nav-link text-white" to="/profile">
+            Profile
+          </Link>
 
-          {token ? (
-            <>
-              <button className="btn btn-outline-light btn-sm">
-                🔓 Profile
-              </button>
-
-              <button className="btn btn-outline-light btn-sm">
-                🔓 Logout
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                className="btn btn-outline-light btn-sm"
-                onClick={() => setView("login")}
-              >
-                🔐 Login
-              </button>
-
-              <button
-                className="btn btn-outline-light btn-sm"
-                onClick={() => setView("register")}
-              >
-                🔐 Register
-              </button>
-            </>
-          )}
+          <Link className="btn btn-outline-info" to="/cart">
+            🛒 Total: $25.000
+          </Link>
         </div>
-
-        {/* DERECHA */}
-        <div>
-          <button
-            className="btn btn-info btn-sm"
-            onClick={() => setView("cart")}
-          >
-            🛒 Total: ${total.toLocaleString()}
-          </button>
-        </div>
-
       </div>
     </nav>
   );
-};
+}
 
 export default Navbar;
