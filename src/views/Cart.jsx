@@ -1,73 +1,97 @@
-import { useState } from "react";
-import pizzaCart from "../data/pizzaCart";
+import { useCart } from "../context/CartContext";
 
 const Cart = () => {
-  const [cart, setCart] = useState(pizzaCart);
+  const { cart, increment, decrement } = useCart();
 
-  // ➕ aumentar cantidad
-  const increase = (id) => {
-    setCart(cart.map(p =>
-      p.id === id ? { ...p, count: p.count + 1 } : p
-    ));
-  };
-
-  // ➖ disminuir cantidad
-  const decrease = (id) => {
-    setCart(cart
-      .map(p =>
-        p.id === id ? { ...p, count: p.count - 1 } : p
-      )
-      .filter(p => p.count > 0)
-    );
-  };
-
-  // 💰 total
+  // Calcular total directamente desde el carrito
   const total = cart.reduce(
-    (acc, p) => acc + p.price * p.count,
+    (sum, pizza) =>
+      sum + Number(pizza.price) * pizza.count,
     0
   );
 
   return (
     <div className="container py-4">
-      <h2>Carrito</h2>
+      <h2 className="mb-4">Detalles del pedido:</h2>
 
-      {cart.map((pizza) => (
-        <div
-          key={pizza.id}
-          className="d-flex justify-content-between align-items-center mb-3"
-        >
-          <div className="d-flex align-items-center gap-2">
-            <img src={pizza.img} alt={pizza.name} width={60} />
-            <span>{pizza.name}</span>
-          </div>
+      {cart.length === 0 ? (
+        <p>Tu carrito está vacío.</p>
+      ) : (
+        <>
+          {cart.map((pizza) => {
+            const subtotal =
+              Number(pizza.price) * pizza.count;
 
-          <span>${pizza.price.toLocaleString()}</span>
+            return (
+              <div
+                key={pizza.id}
+                className="d-flex justify-content-between align-items-center border-bottom py-3"
+              >
+                {/* Imagen + nombre */}
+                <div className="d-flex align-items-center gap-3">
+                  <img
+                    src={pizza.img}
+                    alt={pizza.name}
+                  />
 
-          <div>
-            <button
-              className="btn btn-outline-danger btn-sm"
-              onClick={() => decrease(pizza.id)}
-            >
-              -
+                  <h6 className="mb-0 text-capitalize">
+                    {pizza.name}
+                  </h6>
+                </div>
+
+                {/* Subtotal */}
+                <p className="mb-0 fw-bold">
+                  $
+                  {subtotal.toLocaleString("es-CL")}
+                </p>
+
+                {/* Cantidad */}
+                <div className="d-flex align-items-center">
+                  <button
+                    className="btn btn-outline-danger btn-sm"
+                    onClick={() =>
+                      decrement(pizza.id)
+                    }
+                  >
+                    -
+                  </button>
+
+                  <span className="mx-3 fw-bold">
+                    {pizza.count}
+                  </span>
+
+                  <button
+                    className="btn btn-outline-primary btn-sm"
+                    onClick={() =>
+                      increment(pizza.id)
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Total general */}
+          <div className="mt-4 text-center">
+            <h2>
+              Total: $
+              {cart
+                .reduce(
+                  (sum, pizza) =>
+                    sum + Number(pizza.price) * pizza.count,
+                  0
+                )
+                .toLocaleString("es-CL")}
+            </h2>
+
+            <button className="btn btn-dark mt-2">
+              Pagar
             </button>
-
-            <span className="mx-2">{pizza.count}</span>
-
-            <button
-              className="btn btn-outline-primary btn-sm"
-              onClick={() => increase(pizza.id)}
-            >
-              +
-            </button>
           </div>
-        </div>
-      ))}
-
-      <hr />
-
-      <h3>Total: ${total.toLocaleString()}</h3>
-
-      <button className="btn btn-dark">Pagar</button>
+        </>
+      )}
     </div>
   );
 };

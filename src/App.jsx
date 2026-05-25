@@ -1,5 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
+
 import Navbar from './components/Navbar';
+import Footer from "./components/Footer";
 
 import Home from './views/Home';
 import RegisterPage from './views/RegisterPage';
@@ -24,6 +26,9 @@ function App() {
         <Route path="/404" element={<NotFound />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
+
+      {/* Footer */}
+      <Footer />
     </>
   );
 }

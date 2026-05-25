@@ -1,40 +1,68 @@
-const CardPizza = ({ name, price, ingredients, img }) => {
-  return (
-    <div className="col-md-4 d-flex">
-      <div className="card shadow-sm h-100">
+import { useCart } from "../context/CartContext";
 
+const CardPizza = ({
+  id,
+  name,
+  price,
+  ingredients,
+  img,
+}) => {
+  const { addToCart } = useCart();
+
+  const handleAdd = () => {
+    addToCart({
+      id,
+      name,
+      price,
+      ingredients,
+      img,
+    });
+  };
+
+  return (
+    <div className="col-md-4">
+      <div className="card h-100 shadow">
         <img
           src={img}
           className="card-img-top"
           alt={name}
-          style={{ height: "200px", objectFit: "cover" }}
         />
 
-        <div className="card-body text-center">
-          <h5 className="card-title">{name}</h5>
+        <div className="card-body">
+          <h5 className="card-title text-capitalize">
+            {name}
+          </h5>
 
           <hr />
 
-          <p className="text-muted mb-1">Ingredientes:</p>
+          <p className="text-muted">
+            Ingredientes:
+          </p>
 
-          <ul className="list-unstyled">
-            {ingredients.map((ing, i) => (
-              <li key={i}>🍕 {ing}</li>
+          <ul>
+            {ingredients.map((ing, index) => (
+              <li key={index}>
+                🍕 {ing}
+              </li>
             ))}
           </ul>
 
           <hr />
 
-          <h6 className="fw-bold">
-            Precio: ${price.toLocaleString()}
-          </h6>
+          <h5 className="text-center">
+            Precio: $
+            {price.toLocaleString("es-CL")}
+          </h5>
 
           <div className="d-flex justify-content-between mt-3">
-            <button className="btn btn-outline-dark btn-sm">
+            <button className="btn btn-outline-dark">
               Ver Más 👀
             </button>
 
-            <button className="btn btn-dark btn-sm">
+            <button
+              className="btn btn-dark"
+              onClick={handleAdd}
+            >
               Añadir 🛒
             </button>
           </div>
